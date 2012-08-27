@@ -22,7 +22,7 @@ module CacheDigests
     /x
 
     cattr_accessor(:cache)  { Hash.new }
-    cattr_accessor(:logger, instance_reader: true)
+    cattr_accessor(:logger, :instance_reader => true)
 
     def self.digest(name, format, finder, options = {})
       cache["#{name}.#{format}"] ||= new(name, format, finder, options).digest
@@ -51,7 +51,7 @@ module CacheDigests
 
     def nested_dependencies
       dependencies.collect do |dependency|
-        dependencies = TemplateDigestor.new(dependency, format, finder, partial: true).nested_dependencies
+        dependencies = TemplateDigestor.new(dependency, format, finder, :partial => true).nested_dependencies
         dependencies.any? ? { dependency => dependencies } : dependency
       end
     end
@@ -71,13 +71,13 @@ module CacheDigests
       end
 
       def source
-        @source ||= finder.find(logical_name, [], partial?, formats: [ format ]).source
+        @source ||= finder.find(logical_name, [], partial?, :formats => [ format ]).source
       end
 
 
       def dependency_digest
         dependencies.collect do |template_name|
-          TemplateDigestor.digest(template_name, format, finder, partial: true)
+          TemplateDigestor.digest(template_name, format, finder, :partial => true)
         end.join("-")
       end
 
