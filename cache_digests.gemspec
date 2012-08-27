@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.email   = 'david@37signals.com'
   s.summary = 'Nested fragment caches with (even) less situps'
 
-  s.required_ruby_version = '>= 1.9'
+  s.required_ruby_version = '>= 1.8.7'
 
   s.add_dependency 'actionpack', '>= 3.2'
 
